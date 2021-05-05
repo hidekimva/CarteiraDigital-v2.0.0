@@ -1,5 +1,12 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
-
+import {
+  EntityRepository,
+  getRepository,
+  Repository,
+  Between,
+  Not,
+  IsNull,
+} from 'typeorm';
+import { addDays } from 'date-fns';
 import Transacao from '../models/transacoes';
 
 interface Balance {
@@ -8,34 +15,67 @@ interface Balance {
   total: number;
 }
 
+interface filtro {
+  dataIni: Date;
+  dataFim: Date;
+}
+
 @EntityRepository(Transacao)
-class RepositorioTrasacao extends Repository<Transacao> {
-  public async obterTotal(): Promise<void> {
-    let acomulador: Balance;
-    const RepositorioTrasacoes = getRepository(Transacao);
-    const transacoes = await RepositorioTrasacoes.find();
+class RepositorioTransacao extends Repository<Transacao> {
+  public async getBalance(): Promise<Balance> {
+    const Repositorio = getRepository(Transacao);
+    const dadosTransacao = await Repositorio.find();
 
-    transacoes.forEach(function (transacao) {
-      console.log(transacao);
-      const { tipo } = transacao;
+    const { entrada, saida } = dadosTransacao.reduce(
+      (accumulator: Balance, transacao: Transacao) => {
+        switch (transacao.tipo) {
+          case 'entrada':
+            accumulator.entrada += transacao.valor;
+            break;
+          case 'saida':
+            accumulator.saida += transacao.valor;
+            break;
+          default:
+            break;
+        }
 
-      switch (tipo) {
-        case 'entrada':
-          console.log(acomulador.entrada);
-          acomulador.entrada += transacao.valor;
-          console.log(acomulador.entrada);
-          break;
-        case 'saida':
-          acomulador.saida += transacao.valor;
-          console.log(acomulador.saida);
-          break;
-        default:
-          break;
-      }
-      console.log(acomulador);
-      return acomulador;
+        return accumulator;
+      },
+      {
+        entrada: 0,
+        saida: 0,
+        total: 0,
+      },
+    );
+
+    const total = entrada - saida;
+
+    return { entrada, saida, total };
+  }
+
+  public async consultaPeriodo({
+    dataIni,
+    dataFim,
+  }: filtro): Promise<Transacao[]> {
+    const categorias = getRepository(Transacao);
+    const fim = await addDays(new Date(dataFim), 1);
+
+    const transacoes = await categorias.find({
+      criado_em: Between(dataIni, fim),
     });
+
+    return transacoes;
+  }
+
+  public async consultaIdentificados(): Promise<Transacao[]> {
+    const categorias = getRepository(Transacao);
+
+    const transacoes = await categorias.find({
+      usuario_id: Not(IsNull()),
+    });
+
+    return transacoes;
   }
 }
 
-export default RepositorioTrasacao;
+export default RepositorioTransacao;

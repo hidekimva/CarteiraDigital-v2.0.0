@@ -11,14 +11,29 @@ class Transacao {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  nome: string;
+  @Column('uuid')
+  categoria_id: string;
+
+  @Column('uuid')
+  usuario_id: string;
 
   @Column()
   tipo: string;
 
   @Column()
   valor: number;
+
+  @Column()
+  vencimento: Date;
+
+  @Column()
+  periodicidade: string;
+
+  @Column()
+  parcelas: number;
+
+  @Column()
+  debitoAut: number;
 
   @Column()
   observacao: string;
