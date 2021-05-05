@@ -10,6 +10,7 @@ var index_1 = __importDefault(require("./routes/index"));
 var AppError_1 = __importDefault(require("./errors/AppError"));
 require("./database");
 var app = express_1.default();
+var porta = process.env.PORT;
 app.use(express_1.default.json());
 app.use(index_1.default);
 app.use(function (err, request, response, _) {
@@ -25,6 +26,9 @@ app.use(function (err, request, response, _) {
         message: 'internal server error',
     });
 });
-app.listen(3333, function () {
+app.listen(porta || 3333, function () {
+    if (porta) {
+        console.log("\uD83D\uDE80 Server started on port " + porta + "!");
+    }
     console.log('🚀 Server started on port 3333!');
 });

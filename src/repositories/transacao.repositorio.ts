@@ -16,8 +16,8 @@ interface Balance {
 }
 
 interface filtro {
-  dataIni: Date;
-  dataFim: Date;
+  dataIni: Date | string;
+  dataFim: Date | string;
 }
 
 @EntityRepository(Transacao)

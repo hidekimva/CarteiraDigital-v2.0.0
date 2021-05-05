@@ -29,7 +29,7 @@ CategoriaRouter.post('/', async (request, response) => {
 });
 
 CategoriaRouter.patch('/', async (request, response) => {
-  const { id } = request.query;
+  const { id } = request.params;
   const { nome } = request.body;
 
   const alterarCategoria = new AlterarCategoria();

@@ -55,7 +55,7 @@ sessaoRouter.post('/', function (request, response) { return __awaiter(void 0, v
                     })];
             case 1:
                 _b = _c.sent(), usuario = _b.usuario, token = _b.token;
-                delete usuario.senha;
+                // delete usuario.senha;
                 return [2 /*return*/, response.json({ usuario: usuario, token: token })];
         }
     });

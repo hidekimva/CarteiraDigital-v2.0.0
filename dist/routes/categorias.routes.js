@@ -79,7 +79,7 @@ CategoriaRouter.patch('/', function (request, response) { return __awaiter(void 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = request.query.id;
+                id = request.params.id;
                 nome = request.body.nome;
                 alterarCategoria = new AlteararCategoria_1.default();
                 return [4 /*yield*/, alterarCategoria.execute(id, nome)];

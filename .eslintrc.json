@@ -22,6 +22,8 @@
       "no-restricted-syntax":"off",
       "class-methods-use-this":"off",
       "dot-notation":"off",
+      "@typescript-eslint/explicit-module-boundary-types":"off",
+      "explicit-module-boundary-types":"off",
       "@typescript-eslint/no-use-before-define": [
 	      "error"
       ],

@@ -51,7 +51,7 @@ transacaoRouter.get('/', function (request, response) { return __awaiter(void 0,
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = request.query, dataIni = _a.dataIni, dataFim = _a.dataFim;
+                _a = request.params, dataIni = _a.dataIni, dataFim = _a.dataFim;
                 transacao = typeorm_1.getCustomRepository(transacao_repositorio_1.default);
                 return [4 /*yield*/, transacao.consultaPeriodo({ dataIni: dataIni, dataFim: dataFim })];
             case 1:

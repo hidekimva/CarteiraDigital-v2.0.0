@@ -12,7 +12,7 @@ const transacaoRouter = Router();
 transacaoRouter.use(GarantirAutenticacao);
 
 transacaoRouter.get('/', async (request, response) => {
-  const { dataIni, dataFim } = request.query;
+  const { dataIni, dataFim } = request.params;
 
   const transacao = getCustomRepository(RepositorioTransacao);
 

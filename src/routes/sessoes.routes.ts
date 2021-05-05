@@ -14,7 +14,7 @@ sessaoRouter.post('/', async (request, response) => {
     senha,
   });
 
-  delete usuario.senha;
+  // delete usuario.senha;
 
   return response.json({ usuario, token });
 });

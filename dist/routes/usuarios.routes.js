@@ -56,7 +56,7 @@ usuarioRouter.post('/', function (request, response) { return __awaiter(void 0, 
                     })];
             case 1:
                 usuario = _b.sent();
-                delete usuario.senha;
+                // delete usuario.senha;
                 return [2 /*return*/, response.json(usuario)];
         }
     });
