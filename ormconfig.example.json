@@ -6,12 +6,12 @@
   "password": "postgres",
   "database": "carteira_digital",
   "entities":[
-
-    "./dist/models/*.js"
+    "./dist/models/*.js",
+    "./src/models/*.ts"
   ],
   "migrations": [
-
-    "./dist/database/migrations/*.js"
+    "./dist/database/migrations/*.js",
+    "./src/database/migrations/*.ts"
   ],
   "cli": {
     "migrationsDir" : "./src/database/migrations"
